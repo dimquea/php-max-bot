@@ -376,6 +376,8 @@ $update = PHPMaxBot::$currentUpdate;
 $type = Bot::type();              // Тип обновления
 $text = Bot::getText();           // Текст сообщения
 $callbackData = Bot::getCallbackData(); // Данные callback
+$callbackData = Bot::getContact(); // vCard (если пользователь поделился понтактом)
+$callbackData = Bot::getSender(); // Данные отправителя (id, имя, etc)
 ```
 
 ## Типы обновлений

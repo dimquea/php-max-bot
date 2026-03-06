@@ -542,4 +542,43 @@ class Bot
         }
         return null;
     }
+
+    /**
+     * Get user contact data data
+     *
+     * @return string|null
+     */
+    public static function getContact()
+    {
+        $update = MaxBot::$currentUpdate;
+        if (isset($update['message']['body']['attachments'])) {
+            foreach ($update['message']['body']['attachments'] as $attachment) {
+                if ($attachment['type'] == 'contact') {
+                    return [
+                        'vcard' => $attachment['payload']['vcf_info'],
+                        'user_id' => $attachment['payload']['max_info']['user_id'],
+                        'first_name' => $attachment['payload']['max_info']['first_name'],
+                        'last_name' => $attachment['payload']['max_info']['last_name']
+                    ];
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get sender data
+     *
+     * @return string|null
+     */
+    public static function getSender()
+    {
+        $update = MaxBot::$currentUpdate;
+        if (isset($update['message']['sender'])) {
+            return $update['message']['sender'];
+        } elseif ($update['user']) {
+            return $update['user'];
+        }
+        return null;
+    }
 }
